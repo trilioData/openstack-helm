@@ -945,6 +945,7 @@ conf:
       #The amount of time(in hrs) that snapshot upload operation should wait for the upload
       max_wait_for_upload: 48
       helper_command: sudo /usr/bin/workloadmgr-rootwrap /etc/triliovault-wlm/rootwrap.conf privsep-helper
+      report_interval: 60
     clients:
       client_retry_limit: 3
       insecure: False
