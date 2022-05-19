@@ -75,7 +75,7 @@ multipathd_enabled: false
 
 ceph:
   enabled: true
-  rbd_user: "cinder"
+  rbd_user: "nova"
   keyring: null
 
 pod:
@@ -899,7 +899,7 @@ conf:
     libvirt:
       images_rbd_ceph_conf: /etc/ceph/ceph.conf
     ceph:
-      keyring_ext: .cinder.keyring
+      keyring_ext: .nova.keyring
     contego_sys_admin:
       helper_command: sudo /usr/bin/privsep-helper
     s3fuse_sys_admin:
