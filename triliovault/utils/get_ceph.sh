@@ -11,8 +11,8 @@ cd ../
 tee > values_overrides/ceph.yaml  << EOF
 ceph:
   enabled: true
-  conf: ""
   rbd_user: nova
   keyring: $NOVA_CEPH_KEYRING
 EOF
 
+echo -e "Output is written to file ../values_overrides/ceph.yaml"
