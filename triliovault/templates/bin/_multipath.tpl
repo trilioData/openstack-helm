@@ -1,3 +1,5 @@
+#!/bin/bash
+
 {{/*
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -12,16 +14,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */}}
 
-{{- if .Values.manifests.pdb_datamover_api }}
-{{- $envAll := . }}
----
-apiVersion: policy/v1beta1
-kind: PodDisruptionBudget
-metadata:
-  name: triliovault-datamover-api
-spec:
-  minAvailable: {{ .Values.pod.lifecycle.disruption_budget.datamover_api.min_available }}
-  selector:
-    matchLabels:
-{{ tuple $envAll "triliovault-datamover" "datamover-api" | include "helm-toolkit.snippets.kubernetes_metadata_labels" | indent 6 }}
-{{- end }}
+chroot /mnt/host-rootfs /usr/bin/env -i PATH="/sbin:/bin:/usr/bin" \
+      multipath "${@:1}"

@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-helm delete --purge triliovault
+helm delete triliovault
 kubectl delete job triliovault-datamover-db-init -n triliovault
 kubectl delete job triliovault-wlm-db-init -n triliovault
 kubectl delete job triliovault-datamover-db-sync -n triliovault
@@ -18,3 +18,4 @@ sleep 50s
 kubectl get pods -n triliovault | grep trilio
 kubectl get jobs -n triliovault | grep trilio
 kubectl get pv -n triliovault | grep trilio
+
