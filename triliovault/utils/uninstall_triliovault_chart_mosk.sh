@@ -12,7 +12,8 @@ kubectl delete job triliovault-wlm-ks-endpoints -n triliovault
 kubectl delete job triliovault-wlm-ks-service -n triliovault
 kubectl delete job triliovault-wlm-ks-user -n triliovault
 kubectl delete job triliovault-wlm-rabbit-init -n triliovault
-
+kubectl delete job triliovault-datamover-db-drop
+kubectl delete job triliovault-wlm-db-drop
 sleep 50s
 
 kubectl get pods -n triliovault | grep trilio
