@@ -12,6 +12,6 @@ helm upgrade --install triliovault ./triliovault --namespace=triliovault \
 
 echo -e "Waiting for triliovault pods to get into running state"
 
-./wait_for_pods.sh triliovault
+./triliovault/utils/wait_for_pods.sh triliovault
 
 kubectl get pods
