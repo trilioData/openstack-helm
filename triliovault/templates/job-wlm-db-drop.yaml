@@ -12,7 +12,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */}}
 
+{{- define "metadata.annotations.job.triliovault_wlm_db_drop" }}
+helm.sh/hook: post-install,post-upgrade
+helm.sh/hook-weight: "-6"
+{{- end }}
+
 {{- if .Values.manifests.job_wlm_db_drop }}
-{{- $dbDropJob := dict "configMapBin" "triliovault-bin" "configMapEtc" "triliovault-etc" "envAll" . "serviceName" "triliovault_wlm" -}}
+{{- $serviceName := "triliovault_wlm" -}}
+{{- $dbToDrop := dict "adminSecret" .Values.secrets.oslo_db.admin "configFile" (printf "/etc/%s/%s.conf" "triliovault-wlm" "triliovault-wlm" ) "logConfigFile" (printf "/etc/%s/logging.conf" "triliovault-wlm" ) "configDbSection" "database" "configDbKey" "connection" -}}
+{{- $dbDropJob := dict "configMapBin" "triliovault-bin" "configMapEtc" "triliovault-etc" "envAll" . "serviceName" $serviceName "dbToDrop" $dbToDrop -}}
+{{- if .Values.manifests.certificates -}}
+{{- $_ := set $dbDropJob "dbAdminTlsSecret" .Values.endpoints.oslo_db_triliovault_wlm.auth.admin.secret.tls.internal -}}
+{{- end -}}
+{{- if .Values.helm3_hook }}
+{{- $_ := set $dbDropJob "jobAnnotations" (include "metadata.annotations.job.triliovault_wlm_db_drop" . | fromYaml) }}
+{{- end }}
 {{ $dbDropJob | include "helm-toolkit.manifests.job_db_drop_mysql" }}
 {{- end }}
